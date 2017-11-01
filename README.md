@@ -7,9 +7,10 @@ Condensation is a tool for building images for compute clusters using Apache Mes
 
 You need Docker and Packer.io to use this.
 
-The included fig.yml can set up a simulated cluster on your own machine. It uses the Fig tool.
+The included compose.yml can set up a simulated cluster on your own machine. It uses Docker-Compose.
 
 TODO:
 -----
 More image types (especially OpenStack)
+
 Use Apache Ambari
