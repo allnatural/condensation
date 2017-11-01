@@ -15,7 +15,7 @@ from argparse import ArgumentParser
 
 condensation_version = '0.1'
 
-scala_version = '2.10.4'
+scala_version = '2.12.4'
 spark_version = '1.0.0'
 
 script_loc = os.path.dirname(os.path.realpath(__file__))
@@ -28,7 +28,7 @@ def make_externals():
   banner("Getting external packages to include in builds...")
 
   scala_url = 'http://www.scala-lang.org/files/archive/scala-%s.tgz' % scala_version
-  scala_sha256 = 'b46db638c5c6066eee21f00c447fc13d1dfedbfb60d07db544e79db67ba810c3'
+  scala_sha256 = '9554a0ca31aa8701863e881281b1772370a87e993ce785bb24505f2431292a21'
 
   spark_url = 'http://d3kbcqa49mib13.cloudfront.net/spark-%s-bin-hadoop2.tgz' % spark_version
   spark_sha256 = 'cda5a74c3d0516562ca35023f903916cc91a1a63b5324c785eee57c86f97c290'
