@@ -3,12 +3,18 @@
 # "It builds the cloud."
 # A system for building Mesos images for a cluster (real or simulated).
 
-import urllib2
+try:
+  from urllib.request import urlopen
+except ImportError:
+  from urllib2 import urlopen
 import os
 import sys
 import math
 import hashlib
-import commands
+try:
+  import subprocess
+except ImportError:
+  import command as subprocess
 from fnmatch import fnmatch
 import tarfile
 from argparse import ArgumentParser
@@ -57,7 +63,7 @@ def make_containers(domain, zk_conn):
         user_vars = get_user_vars(domain, zk_conn)
         print("(make_containers): packer using uservars: %s" % user_vars)
 
-        status_code, output = commands.getstatusoutput("packer validate %s %s" % (user_vars, build))
+        status_code, output = subprocess.getstatusoutput("packer validate %s %s" % (user_vars, build))
         if status_code == 256:
           sys.stderr.write("%s: fatal error: packer validation failed!\n\nOutput:\n--------\n %s\n" % (build, output))
           sys.exit(20)
@@ -69,7 +75,7 @@ def make_containers(domain, zk_conn):
           sys.exit(status_code)
 
         print("%s: building images (this can take awhile)...\r" % build)
-        status_code, output = commands.getstatusoutput("packer build %s %s" % (user_vars, build))
+        status_code, output = subprocess.getstatusoutput("packer build %s %s" % (user_vars, build))
         if status_code == 256:
           sys.stderr.write("%s: fatal error: Packer image build failed!\n\nOutput:\n--------\n %s\n" % (build, output))
           sys.exit(20)
@@ -101,7 +107,7 @@ def download(url, sha, out_path):
         untar(file_path, out_path)
       return
 
-  resource = urllib2.urlopen(url)
+  resource = urlopen(url)
 
   out = open(file_path, 'wb')
 
